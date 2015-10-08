@@ -24,10 +24,6 @@ Bring notification in [freee feed](http://www.freee.co.jp/blog/feed) to [Idobata
    - Frequency: `Hourly`
 6. Done!
 
-## License
-
-Sample script to sign in Doorkeeper using Capybara
-
 ## License 
 
 The MIT License (MIT)
