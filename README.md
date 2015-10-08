@@ -1,6 +1,6 @@
-# Hatebu to Idobata
+# RSS (freee) to Idobata
 
-Bring notification in [Hatebu](http://b.hatena.ne.jp/) to [Idobata](http://idobata.io).
+Bring notification in [freee feed](http://www.freee.co.jp/blog/feed) to [Idobata](http://idobata.io).
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/2819285/hatebu2idobata.png)
 
