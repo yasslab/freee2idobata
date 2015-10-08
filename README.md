@@ -2,7 +2,7 @@
 
 Bring notification in [freee feed](http://www.freee.co.jp/blog/feed) to [Idobata](http://idobata.io).
 
-![Screenshot](https://raw.githubusercontent.com/yasulab/freee2idobata/master/freee2idobata.png)
+![Screenshot](https://raw.githubusercontent.com/yasulab/freee2idobata/master/freee2idobata.jpg)
 
 ## Requirements
 
