@@ -3,6 +3,7 @@
 
 require 'rss'
 require 'idobata'
+require 'pry'
 
 Idobata.hook_url = ENV['IDOBATA_END']
 
@@ -13,12 +14,15 @@ msg = ""
 rss = RSS::Parser.parse("http://www.freee.co.jp/blog/feed")
 
 # NOTE: Heroku Scheduler's frequency should be set to "Every 10 minutes"
-bookmarks = rss.items.select do |item|
+articles = rss.items.select do |item|
+  #(Time.now - item.date) / 60 <= 10000 # for debugging
   (Time.now - item.date) / 60 <= 10
 end
 
-msg << bookmarks.map {|b|
-  p "<a href='#{b.link}'>#{b.title}</a> by <span class='label label-info'>freee</span><br /> <b>#{b.description}<b/>"
+#binding.pry
+
+msg << articles.map {|a|
+  p "<a href='#{a.link}'>#{a.title}</a> by <span class='label label-info'>freee</span><br /> <b>#{a.description}<b/>"
 }.join("<br/>")
 
 
