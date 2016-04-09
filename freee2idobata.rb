@@ -15,7 +15,7 @@ feed = Feedjira::Feed.fetch_and_parse("https://www.freee.co.jp/blog/feed")
 # NOTE: Heroku Scheduler's frequency should be set to "Every 10 minutes"
 articles = feed.entries.select do |entry|
   #(Time.now - item.date) / 60 <= 10000 # for debugging
-  (Time.now - entry.published) / 60 <= 144000 # 1440 = exec per day
+  (Time.now - entry.published) / 60 <= 1440 # exec per day
 end
 
 #binding.pry
