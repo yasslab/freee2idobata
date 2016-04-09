@@ -1,29 +1,32 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
-require 'rss'
+require 'feedjira'
 require 'idobata'
 require 'pry'
 
 Idobata.hook_url = ENV['IDOBATA_END']
 
-msg = ""
 # Flush cache RSS before downloading
 `curl -H 'Pragma: no-cache' -L www.freee.co.jp/blog/feed`
 
-rss = RSS::Parser.parse("http://www.freee.co.jp/blog/feed")
+feed = Feedjira::Feed.fetch_and_parse("https://www.freee.co.jp/blog/feed")
 
 # NOTE: Heroku Scheduler's frequency should be set to "Every 10 minutes"
-articles = rss.items.select do |item|
+articles = feed.entries.select do |entry|
   #(Time.now - item.date) / 60 <= 10000 # for debugging
-  (Time.now - item.date) / 60 <= 10
+  (Time.now - entry.published) / 60 <= 144000 # 1440 = exec per day
 end
 
 #binding.pry
 
-msg << articles.map {|a|
-  p "<a href='#{a.link}'>#{a.title}</a> by <span class='label label-info'>freee</span><br /> <b>#{a.description}<b/>"
-}.join("<br/>")
+msg = ""
+if articles.empty?
+  puts "Nothing updated"
+else
+  msg << articles.map {|a|
+    p "<a href='#{a.url}'>#{a.title}</a> by <span class='label label-info'>freee</span><br /> <b>#{a.summary}<b/>"
+  }.join("<br/>")
 
-
-Idobata::Message.create(source: msg, format: :html) unless msg.empty?
+  Idobata::Message.create(source: msg, format: :html)
+end
