@@ -20,13 +20,10 @@ end
 
 #binding.pry
 
-msg = ""
-if articles.empty?
-  puts "Nothing updated"
-else
-  msg << articles.map {|a|
-    p "<a href='#{a.url}'>#{a.title}</a> by <span class='label label-info'>freee</span><br /> <b>#{a.summary}<b/>"
-  }.join("<br/>")
+msg << articles.map {|a|
+  p "<a href='#{a.link}'>#{a.title}</a> by <span class='label label-info'>freee</span><br /> <b>#{a.description}</b>"
+}.join("<br/>")
 
-  Idobata::Message.create(source: msg, format: :html)
-end
+
+Idobata::Message.create(source: msg, format: :html) unless msg.empty?
+
